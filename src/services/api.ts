@@ -20,12 +20,21 @@ api.interceptors.response.use(
             originalRequest._retry = true;
             try {
                 // Refresh token request (cookies will be sent automatically)
-                await api.post("/auth/refresh-token", {}, { withCredentials: true });
+                const response = await api.post("/auth/refresh-token", {}, { withCredentials: true });
+
+                // Extract the new access token from the response
+                const newAccessToken = response.data?.accessToken;
+
+                if (newAccessToken) {
+                    // Update the Authorization header
+                    api.defaults.headers.common["Authorization"] = `Bearer ${newAccessToken}`;
+                    originalRequest.headers["Authorization"] = `Bearer ${newAccessToken}`;
+                }
 
                 // Retry the original request
                 return api(originalRequest);
             } catch (refreshError) {
-                // store.dispatch(logout()); // Logout on failure
+                console.log("refreshErr: ", refreshError);
                 return Promise.reject(refreshError);
             }
         }
