@@ -57,7 +57,7 @@ function NavBar() {
     return (
         <nav className="bg-white border-b border-gray-200 w-full">
             {/* Top Navbar */}
-            <div className="flex justify-between items-center px-[4vw] py-4 ">
+            <div className="flex justify-between items-center px-[4vw] py-4">
                 {/* Logo */}
                 <div className="flex items-center space-x-2">
                     <img src={logo} alt="Boardingspot" className="h-8" />

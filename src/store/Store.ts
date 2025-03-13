@@ -2,6 +2,7 @@ import { configureStore } from "@reduxjs/toolkit";
 import userReducer from "../reducers/UserSlice";
 import storage from "redux-persist/lib/storage";
 import { persistReducer, persistStore } from "redux-persist";
+import hostelReducer from "../reducers/HostelSlice.ts"
 
 const persistConfig = {
     key: "root",
@@ -13,6 +14,7 @@ const persistedReducer = persistReducer(persistConfig, userReducer);
 export const store = configureStore({
     reducer: {
         user: persistedReducer,
+        hostel: hostelReducer
     },
     middleware: (getDefaultMiddleware) =>
         getDefaultMiddleware({

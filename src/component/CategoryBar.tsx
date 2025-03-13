@@ -1,8 +1,9 @@
-import { useNavigate, useLocation } from "react-router-dom";
-import { Users2, Briefcase, GraduationCap, Globe2, Sliders } from "lucide-react";
-import { FaMale, FaFemale, FaUserFriends } from "react-icons/fa";
-import { MdOutlineSingleBed, MdOutlineBedroomParent } from "react-icons/md";
-import { useState, useEffect } from "react";
+import {useLocation, useNavigate} from "react-router-dom";
+import {Briefcase, Globe2, GraduationCap, Sliders, Users2} from "lucide-react";
+import {FaFemale, FaMale, FaUserFriends} from "react-icons/fa";
+import {MdOutlineBedroomParent, MdOutlineSingleBed} from "react-icons/md";
+import {useEffect, useState} from "react";
+import {Gender} from "../model/enum/Gender.ts";
 
 const categories = [
     { name: "Single", value: "single", key: "category", icon: MdOutlineSingleBed },
@@ -17,9 +18,9 @@ const occupations = [
 ];
 
 const genders = [
-    { name: "Male", value: "male", key: "genderPreference", icon: FaMale },
-    { name: "Female", value: "female", key: "genderPreference", icon: FaFemale },
-    { name: "Anyone", value: "anyone", key: "genderPreference", icon: FaUserFriends },
+    { name: "Male", value: Gender.MALE, key: "genderPreference", icon: FaMale },
+    { name: "Female", value: Gender.FEMALE, key: "genderPreference", icon: FaFemale },
+    { name: "Anyone", value: Gender.ANY, key: "genderPreference", icon: FaUserFriends },
 ];
 
 const filters = [...categories, ...occupations, ...genders];

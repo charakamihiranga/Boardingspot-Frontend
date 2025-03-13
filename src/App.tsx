@@ -7,6 +7,7 @@ import {GoogleOAuthProvider} from "@react-oauth/google";
 import {Provider} from "react-redux";
 import {persistor, store} from "./store/Store.ts";
 import {PersistGate} from "redux-persist/integration/react";
+import AddHostelPage from "./page/AddHostelPage.tsx";
 
 const routes = createBrowserRouter([
     {
@@ -17,6 +18,7 @@ const routes = createBrowserRouter([
             { index: true, element: <HostelriesPage /> },
             { path: 'hostelries', element: <HostelriesPage /> },
             { path: 'foods', element: <FoodsPage /> },
+            { path: 'showcase-your-space', element: <AddHostelPage/>},
         ]
     },
     { path: '*', element: <ErrorPage /> },
