@@ -1,6 +1,7 @@
 import {Gender} from "../model/enum/Gender.ts";
 import {RoomCategories} from "../model/enum/RoomCategories.ts";
 import {ResidentType} from "../model/enum/ResidentType.ts";
+import {Hostel} from "../model/Hostel.ts";
 
 export interface IHostel {
     _id?: string;
@@ -46,4 +47,9 @@ export interface IHostelState {
     totalPages: number;
     totalItems: number;
     hasMore: boolean;
+}
+
+export interface IHostelCardProps {
+    hostels: Hostel[];
+    openHostelDetails: (id: string) => void;
 }
