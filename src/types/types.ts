@@ -53,3 +53,10 @@ export interface IHostelCardProps {
     hostels: Hostel[];
     openHostelDetails: (id: string) => void;
 }
+
+export interface ILocationBounds {
+    neLat: number;
+    neLng: number;
+    swLat: number;
+    swLng: number;
+}

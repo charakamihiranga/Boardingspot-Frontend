@@ -8,6 +8,7 @@ import {Provider} from "react-redux";
 import {persistor, store} from "./store/Store.ts";
 import {PersistGate} from "redux-persist/integration/react";
 import AddHostelPage from "./page/AddHostelPage.tsx";
+import HostelriesMapPage from "./page/HostelriesMapPage.tsx";
 
 const routes = createBrowserRouter([
     {
@@ -19,6 +20,7 @@ const routes = createBrowserRouter([
             { path: 'hostelries', element: <HostelriesPage /> },
             { path: 'foods', element: <FoodsPage /> },
             { path: 'showcase-your-space', element: <AddHostelPage/>},
+            { path: 'hostelry-map', element: <HostelriesMapPage/>}
         ]
     },
     { path: '*', element: <ErrorPage /> },

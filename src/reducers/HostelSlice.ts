@@ -75,6 +75,28 @@ export const getHostels = createAsyncThunk(
     }
 );
 
+export const getBoardingsByLocationBounds = createAsyncThunk(
+    "hostel/getBoardingsByLocationBounds",
+    async (
+        params: {
+            neLat: number;
+            neLng: number;
+            swLat: number;
+            swLng: number;
+            page?: number;
+            limit?: number;
+        }
+    ) => {
+        try {
+            const response = await api.get("room/nearby", {params});
+            return response.data;
+        } catch (error) {
+            console.error(error);
+            throw error;
+        }
+    }
+);
+
 const hostelSlice = createSlice({
     name: "hostel",
     initialState,
@@ -104,7 +126,7 @@ const hostelSlice = createSlice({
             .addCase(addHostel.rejected, (state, action) => {
                 state.isLoading = false;
                 throw action.payload;
-            })
+            });
         builder
             .addCase(getHostels.pending, (state) => {
                 state.isLoading = true;
@@ -121,7 +143,23 @@ const hostelSlice = createSlice({
             .addCase(getHostels.rejected, (state, action) => {
                 state.isLoading = false;
                 throw action.payload;
+            });
+        builder
+            .addCase(getBoardingsByLocationBounds.pending, (state) => {
+                state.isLoading = true;
             })
+            .addCase(getBoardingsByLocationBounds.fulfilled, (state, action) => {
+                state.isLoading = false;
+                state.hostels = action.payload.data;
+                state.page = action.payload.page;
+                state.totalPages = action.payload.totalPages;
+                state.totalItems = action.payload.totalItems;
+                state.hasMore = action.payload.hasMore;
+            })
+            .addCase(getBoardingsByLocationBounds.rejected, (state, action) => {
+                state.isLoading = false;
+                state.error = action.payload as string;
+            });
     }
 });
 
