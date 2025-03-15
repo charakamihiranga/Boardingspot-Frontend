@@ -51,6 +51,29 @@ export const addHostel = createAsyncThunk(
     }
 );
 
+export const getHostels = createAsyncThunk(
+    "hostel/getHostels",
+    async (
+        params: {
+            city?: string;
+            genderPreference?: string;
+            capacity?: number;
+            maxPrice?: number;
+            foodAvailability?: boolean;
+            forWhom?: string;
+            category?: string;
+            page?: number;
+            limit?: number;
+        }
+    )=> {
+        try {
+            const response = await api.get("rooms", {params});
+            return response.data;
+        } catch (error) {
+            console.error(error);
+        }
+    }
+);
 
 const hostelSlice = createSlice({
     name: "hostel",
@@ -79,6 +102,23 @@ const hostelSlice = createSlice({
                 state.successMessage = "Hostel published successfully.";
             })
             .addCase(addHostel.rejected, (state, action) => {
+                state.isLoading = false;
+                throw action.payload;
+            })
+        builder
+            .addCase(getHostels.pending, (state) => {
+                state.isLoading = true;
+                state.error = "";
+            })
+            .addCase(getHostels.fulfilled, (state, action) => {
+                state.isLoading = false;
+                state.hostels = action.payload.data;
+                state.page = action.payload.page;
+                state.totalPages = action.payload.totalPages;
+                state.totalItems = action.payload.totalItems;
+                state.hasMore = action.payload.hasmore;
+            })
+            .addCase(getHostels.rejected, (state, action) => {
                 state.isLoading = false;
                 throw action.payload;
             })
