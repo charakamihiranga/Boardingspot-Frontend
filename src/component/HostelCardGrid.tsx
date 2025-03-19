@@ -1,25 +1,9 @@
 import { MapPin, Clock, Users, ArrowUpRight } from "lucide-react";
 import { IHostelCardProps } from "../types/types.ts";
+import {getTimeAgo} from "../util/util.ts";
 
 export default function HostelCardGrid({ hostels, openHostelDetails }: IHostelCardProps) {
-    const getTimeAgo = (dateString: string) => {
-        const createdDate = new Date(dateString); // Ensure this is a Date object
-        const currentDate = new Date();
 
-        if (isNaN(createdDate.getTime())) {
-            return "Invalid date";
-        }
-
-        const diffTime = Math.abs(currentDate.getTime() - createdDate.getTime()); // Use .getTime()
-        const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-
-        if (diffDays < 1) return "Today";
-        if (diffDays === 1) return "Yesterday";
-        if (diffDays < 7) return `${diffDays} days ago`;
-        if (diffDays < 30) return `${Math.floor(diffDays / 7)} weeks ago`;
-        if (diffDays < 365) return `${Math.floor(diffDays / 30)} months ago`;
-        return `${Math.floor(diffDays / 365)} years ago`;
-    };
 
     return (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6">
