@@ -97,6 +97,45 @@ export const getBoardingsByLocationBounds = createAsyncThunk(
     }
 );
 
+export const getHostelById = createAsyncThunk(
+    "hostel/getHostelById",
+    async (hostelId: string) => {
+        try {
+            const response = await api.get(`rooms/${hostelId}`);
+            return response.data;
+        } catch (e) {
+            console.error(e)
+            throw e;
+        }
+    }
+);
+
+export const getHostelsByUser = createAsyncThunk(
+    "hostel/getHostelsByUser",
+    async (userId: string) => {
+        try {
+            const response = await api.get(`rooms/owner/${userId}`);
+            return response.data;
+        } catch (e) {
+            console.error(e);
+            throw e;
+        }
+    }
+);
+
+export const deleteHostel = createAsyncThunk(
+    "hostel/deleteHostel",
+    async (hostelId: string) => {
+        try {
+            const response = await api.delete(`rooms/${hostelId}`);
+            return response.data;
+        } catch (e) {
+            console.error(e);
+            throw e;
+        }
+    }
+);
+
 const hostelSlice = createSlice({
     name: "hostel",
     initialState,
@@ -160,6 +199,34 @@ const hostelSlice = createSlice({
                 state.isLoading = false;
                 state.error = action.payload as string;
             });
+        builder
+            .addCase(getHostelsByUser.pending, (state) => {
+                state.isLoading = true;
+            })
+            .addCase(getHostelsByUser.rejected, (state, action) => {
+                state.isLoading = false;
+                state.error = action.payload as string;
+            })
+            .addCase(getHostelsByUser.fulfilled, (state, action) => {
+                state.isLoading = false;
+                state.hostels = action.payload;
+                state.page = action.payload.page;
+                state.totalPages = action.payload.totalPages;
+                state.totalItems = action.payload.totalItems;
+                state.hasMore = action.payload.hasMore;
+            })
+        builder
+            .addCase(deleteHostel.pending, (state) => {
+                state.isLoading = true;
+            })
+            .addCase(deleteHostel.rejected, (state, action) => {
+                state.isLoading = false;
+                state.error = action.payload as string;
+            })
+            .addCase(deleteHostel.fulfilled, (state, action) => {
+                state.isLoading = false;
+                state.hostels = state.hostels.filter(hostel => hostel._id !== action.meta.arg);
+            })
     }
 });
 
