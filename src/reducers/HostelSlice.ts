@@ -227,6 +227,18 @@ const hostelSlice = createSlice({
                 state.isLoading = false;
                 state.hostels = state.hostels.filter(hostel => hostel._id !== action.meta.arg);
             })
+        builder
+            .addCase(getHostelById.pending, (state) => {
+                state.isLoading =true;
+            })
+            .addCase(getHostelById.rejected, (state, action) => {
+                state.isLoading = false;
+                state.error = action.payload as string;
+            })
+            .addCase(getHostelById.fulfilled, (state, action) => {
+                state.isLoading = false;
+                state.selectedHostel = action.payload;
+            })
     }
 });
 

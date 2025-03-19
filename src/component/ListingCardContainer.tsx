@@ -109,7 +109,7 @@ const ListingCardContainer: React.FC<ListingCardContainerProps> = ({ hostels = [
                 </p>
                 <button
                     onClick={() => navigate('/create-hostel')}
-                    className="px-6 py-3 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 transition-all shadow-sm hover:shadow-md flex items-center gap-2"
+                    className="px-6 py-3 bg-blue-600 text-white cursor-pointer font-medium rounded-lg hover:bg-blue-700 transition-all shadow-sm hover:shadow-md flex items-center gap-2"
                 >
                     <span>Create New Listing</span>
                 </button>
@@ -143,7 +143,7 @@ const ListingCardContainer: React.FC<ListingCardContainerProps> = ({ hostels = [
                                             e.stopPropagation();
                                             handleCardClick(hostel._id as string);
                                         }}
-                                        className="bg-white text-gray-800 px-4 py-2 rounded-lg text-sm font-medium hover:bg-gray-50 transition-colors flex items-center gap-2 shadow-md w-full justify-center"
+                                        className="bg-white cursor-pointer text-gray-800 px-4 py-2 rounded-lg text-sm font-medium hover:bg-gray-50 transition-colors flex items-center gap-2 shadow-md w-full justify-center"
                                     >
                                         <Eye className="h-4 w-4 text-blue-600" /> View Details
                                     </button>
