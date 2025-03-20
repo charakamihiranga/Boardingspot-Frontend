@@ -8,6 +8,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {AppDispatch, RootState} from "../store/Store.ts";
 import SignIn from "../component/SignIn.tsx";
 import {logout} from "../reducers/UserSlice.ts";
+import Swal from "sweetalert2";
 function NavBar() {
     const [searchQuery, setSearchQuery] = useState({
         city: "",
@@ -53,6 +54,23 @@ function NavBar() {
         navigate(`/${activeTab}?${queryParams.toString()}`);
     };
 
+    const handleLogout = async () => {
+        const result = await Swal.fire({
+            title: "Are you sure?",
+            text: "You will be logged out!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#d33",
+            cancelButtonColor: "#3085d6",
+            confirmButtonText: "Yes, Logout",
+            cancelButtonText: "Cancel",
+        });
+
+        if (result.isConfirmed) {
+            dispatch(logout());
+            navigate("/hostelries");
+        }
+    };
 
     return (
         <nav className="bg-white border-b border-gray-200 w-full">
@@ -146,7 +164,7 @@ function NavBar() {
                                         </Link>
                                         <button
                                             className="block w-full text-left px-4 py-3 text-gray-700 hover:bg-gray-100 transition"
-                                            onClick={() => dispatch(logout())}
+                                            onClick={handleLogout}
                                         >
                                             Logout
                                         </button>
