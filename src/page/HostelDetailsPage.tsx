@@ -156,7 +156,7 @@ export default function HostelDetailsPage() {
     }
 
     return (
-        <div className="bg-white min-h-screen">
+        <div className="bg-white min-h-screen pt-20 sm:pt-6 md:pt-8 lg:pt-12 xl:pt-16">
             {/* Header with back button */}
             <motion.div
                 className="sticky top-0 z-10 bg-white shadow-sm p-4 flex items-center"
