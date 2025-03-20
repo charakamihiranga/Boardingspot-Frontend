@@ -136,6 +136,30 @@ export const deleteHostel = createAsyncThunk(
     }
 );
 
+export const updateHostel = createAsyncThunk(
+    "hostel/updateHostel",
+    async (hostelData: {id: string; updates: Partial<IHostel>}) => {
+        try {
+            const formData = new FormData();
+            const { id, updates } = hostelData;
+            Object.entries(updates).forEach(([key, value]) => {
+                if (key == "photos" && Array.isArray(value)) {
+                    value.forEach((photo) => formData.append("photos", photo))
+                } else if ( typeof value === "object") {
+                    formData.append(key, JSON.stringify(value));
+                } else {
+                    formData.append(key, value as string);
+                }
+            });
+            const response = await api.patch(`rooms/${id}`, formData);
+            return response.data;
+        } catch (e) {
+            console.error(e);
+            throw e;
+        }
+    }
+);
+
 const hostelSlice = createSlice({
     name: "hostel",
     initialState,
@@ -239,6 +263,21 @@ const hostelSlice = createSlice({
                 state.isLoading = false;
                 state.selectedHostel = action.payload;
             })
+        builder
+            .addCase(updateHostel.pending, (state) => {
+                state.isLoading = true;
+            })
+            .addCase(updateHostel.rejected, (state, action) => {
+                state.isLoading = false;
+                state.error = action.payload as string;
+            })
+            .addCase(updateHostel.fulfilled, (state, action) => {
+                state.isLoading = false;
+                const updatedHostel = action.payload.hostel;
+                state.hostels = state.hostels.map((hostel) =>
+                    hostel._id === updatedHostel._id ? updatedHostel : hostel
+                );
+            });
     }
 });
 
