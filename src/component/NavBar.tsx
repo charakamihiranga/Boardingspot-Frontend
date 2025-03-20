@@ -85,31 +85,6 @@ function NavBar() {
                     <div className="text-xl font-bold text-orange-600">Boardingspot</div>
                 </button>
 
-                {/* Navigation Links (Desktop) */}
-                <div className="hidden md:flex text-gray-600 font-medium">
-                    <Link to="/hostelries" onClick={() => setActiveTab("hostelries")}>
-                        <button
-                            className={`px-4 py-2 cursor-pointer rounded-full transition-all ${
-                                activeTab === "hostelries"
-                                    ? "text-gray-800 font-semibold"
-                                    : "text-gray-500 hover:bg-gray-100 hover:text-gray-800"
-                            }`}
-                        >
-                            Hostelries
-                        </button>
-                    </Link>
-                    <Link to="/foods" onClick={() => setActiveTab("foods")}>
-                        <button
-                            className={`px-4 py-2 rounded-full transition-all ${
-                                activeTab === "foods"
-                                    ? "text-gray-800 font-semibold"
-                                    : "text-gray-500 hover:bg-gray-100 hover:text-gray-800"
-                            }`}
-                        >
-                            Foods
-                        </button>
-                    </Link>
-                </div>
 
                 {/* Right-Aligned Items */}
                 <div

@@ -21,7 +21,6 @@ const routes = createBrowserRouter([
         children: [
             { index: true, element: <HostelriesPage /> },
             { path: 'hostelries', element: <HostelriesPage /> },
-            { path: 'foods', element: <FoodsPage /> },
             { path: 'showcase-your-space', element: <AddHostelPage/>},
             { path: 'hostelry-map', element: <HostelriesMapPage/>},
             { path: 'manage-listings', element: <ManageListing />},
