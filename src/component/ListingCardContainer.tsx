@@ -161,7 +161,7 @@ const ListingCardContainer: React.FC<ListingCardContainerProps> = ({ hostels = [
                                 <div className="relative">
                                     <button
                                         onClick={(e) => toggleMenu(hostel._id as string, e)}
-                                        className="bg-white/90 backdrop-blur-sm text-gray-700 p-2 rounded-full hover:bg-white transition-colors shadow-sm"
+                                        className="bg-white/90 backdrop-blur-sm  cursor-pointer text-gray-700 p-2 rounded-full hover:bg-white transition-colors shadow-sm"
                                         aria-label="More options"
                                     >
                                         <MoreHorizontal className="h-4 w-4" />
@@ -171,13 +171,13 @@ const ListingCardContainer: React.FC<ListingCardContainerProps> = ({ hostels = [
                                         <div className="absolute right-0 top-full mt-2 bg-white shadow-lg rounded-xl overflow-hidden z-10 w-44 py-1 border border-gray-100 animate-fadeIn">
                                             <button
                                                 onClick={(e) => handleEdit(hostel._id as string, e)}
-                                                className="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 flex items-center gap-2"
+                                                className="w-full text-left cursor-pointer px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 flex items-center gap-2"
                                             >
                                                 <Edit2 className="h-4 w-4 text-blue-600" /> Edit Listing
                                             </button>
                                             <button
                                                 onClick={(e) => handleDelete(hostel._id as string, e)}
-                                                className="w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-red-50 flex items-center gap-2"
+                                                className="w-full text-left cursor-pointer px-4 py-2 text-sm text-red-600 hover:bg-red-50 flex items-center gap-2"
                                             >
                                                 <Trash2 className="h-4 w-4" /> Delete Listing
                                             </button>
