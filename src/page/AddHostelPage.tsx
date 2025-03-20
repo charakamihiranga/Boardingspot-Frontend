@@ -1,6 +1,6 @@
 import {useDispatch, useSelector} from "react-redux";
 import {useNavigate} from "react-router-dom";
-import {RootState} from "../store/Store.ts";
+import {AppDispatch, RootState} from "../store/Store.ts";
 import {useEffect, useState} from "react";
 import {useMediaQuery} from "react-responsive";
 import {addHostel, nextStep, prevStep, resetForm, updateFormData} from "../reducers/HostelSlice.ts";
@@ -14,7 +14,7 @@ import RoomDetailInfo from "../component/RoomDetailInfo.tsx";
 import Swal from "sweetalert2";
 
 function AddHostelPage() {
-    const dispatch = useDispatch();
+    const dispatch = useDispatch<AppDispatch>();
     const navigate = useNavigate();
     const step = useSelector((state: RootState) => state.hostel.step);
     const hostel = useSelector((state: RootState) => state.hostel);
@@ -46,7 +46,6 @@ function AddHostelPage() {
 
     const handlePublish = async () => {
         try {
-            // @ts-ignore
             await dispatch(addHostel(hostel.formData));
             dispatch(resetForm());
             navigate("/");
