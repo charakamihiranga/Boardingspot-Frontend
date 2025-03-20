@@ -77,10 +77,13 @@ function NavBar() {
             {/* Top Navbar */}
             <div className="flex justify-between items-center px-[4vw] py-4">
                 {/* Logo */}
-                <div className="flex items-center space-x-2">
+                <button
+                    onClick={() => navigate("/hostelries")}
+                    className="flex items-center space-x-2 focus:outline-none cursor-pointer"
+                >
                     <img src={logo} alt="Boardingspot" className="h-8" />
                     <div className="text-xl font-bold text-orange-600">Boardingspot</div>
-                </div>
+                </button>
 
                 {/* Navigation Links (Desktop) */}
                 <div className="hidden md:flex text-gray-600 font-medium">
