@@ -1,23 +1,16 @@
-import { useDispatch, useSelector } from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {AppDispatch, RootState} from "../store/Store.ts";
 import {getHostelById, updateFormData, updateHostel} from "../reducers/HostelSlice.ts";
-import { useEffect, useState } from "react";
+import {useEffect, useState} from "react";
 import {useNavigate, useSearchParams} from "react-router-dom";
 import Swal from "sweetalert2";
-import {
-    BedDouble,
-    Save,
-    Home,
-    Phone,
-    DollarSign,
-    Users,
-    ChevronDown,
-    ChevronUp
-} from "lucide-react";
-import { GiMeal } from "react-icons/gi";
-import { FaMale, FaFemale, FaUserFriends } from "react-icons/fa";
-import { MdWork, MdSchool, MdPeople } from "react-icons/md";
+import {BedDouble, ChevronDown, ChevronUp, DollarSign, Home, Phone, Save, Users} from "lucide-react";import {GiMeal} from "react-icons/gi";
+import {FaFemale, FaMale, FaUserFriends} from "react-icons/fa";
+import {MdPeople, MdSchool, MdWork} from "react-icons/md";
 import {useMediaQuery} from "react-responsive";
+import {RoomCategories} from "../model/enum/RoomCategories.ts";
+import {Gender} from "../model/enum/Gender.ts";
+import {ResidentType} from "../model/enum/ResidentType.ts";
 
 function UpdateHostel() {
     const [searchParams] = useSearchParams();
@@ -99,7 +92,7 @@ function UpdateHostel() {
 
         try {
             await dispatch(updateHostel({
-                id: hostelId as string,
+                id: hostelId || searchParams.get("id") as string,
                 updates: {
                     title,
                     capacity,
@@ -275,9 +268,9 @@ function UpdateHostel() {
                                 <label className="block text-gray-700 font-medium mb-2">Room Type</label>
                                 <div className="grid grid-cols-3 gap-3">
                                     {[
-                                        { value: "single", label: "Single", icon: <FaUserFriends className="w-6 h-6" /> },
-                                        { value: "double", label: "Double", icon: <BedDouble className="w-6 h-6" /> },
-                                        { value: "sharing", label: "Sharing", icon: <MdPeople className="w-6 h-6" /> }
+                                        { value: RoomCategories.SINGLE, label: "Single", icon: <FaUserFriends className="w-6 h-6" /> },
+                                        { value: RoomCategories.DOUBLE, label: "Double", icon: <BedDouble className="w-6 h-6" /> },
+                                        { value: RoomCategories.SHARING, label: "Sharing", icon: <MdPeople className="w-6 h-6" /> }
                                     ].map((option) => (
                                         <button
                                             key={option.value}
@@ -370,9 +363,9 @@ function UpdateHostel() {
                                 <label className="block text-gray-700 font-medium mb-2">Gender Preference</label>
                                 <div className="grid grid-cols-3 gap-3">
                                     {[
-                                        { value: "male", label: "Male", icon: <FaMale className="w-6 h-6" /> },
-                                        { value: "female", label: "Female", icon: <FaFemale className="w-6 h-6" /> },
-                                        { value: "anyone", label: "Anyone", icon: <FaUserFriends className="w-6 h-6" /> }
+                                        { value: Gender.MALE, label: "Male", icon: <FaMale className="w-6 h-6" /> },
+                                        { value: Gender.FEMALE, label: "Female", icon: <FaFemale className="w-6 h-6" /> },
+                                        { value: Gender.ANY, label: "Anyone", icon: <FaUserFriends className="w-6 h-6" /> }
                                     ].map((option) => (
                                         <button
                                             key={option.value}
@@ -394,9 +387,9 @@ function UpdateHostel() {
                                 <label className="block text-gray-700 font-medium mb-2">For Whom</label>
                                 <div className="grid grid-cols-3 gap-3">
                                     {[
-                                        { value: "student", label: "Student", icon: <MdSchool className="w-6 h-6" /> },
-                                        { value: "employee", label: "Employee", icon: <MdWork className="w-6 h-6" /> },
-                                        { value: "anyone", label: "Anyone", icon: <FaUserFriends className="w-6 h-6" /> }
+                                        { value: ResidentType.STUDENT, label: "Student", icon: <MdSchool className="w-6 h-6" /> },
+                                        { value: ResidentType.EMPLOYEE, label: "Employee", icon: <MdWork className="w-6 h-6" /> },
+                                        { value: ResidentType.ANYONE, label: "Anyone", icon: <FaUserFriends className="w-6 h-6" /> }
                                     ].map((option) => (
                                         <button
                                             key={option.value}

@@ -273,7 +273,7 @@ const hostelSlice = createSlice({
             })
             .addCase(updateHostel.fulfilled, (state, action) => {
                 state.isLoading = false;
-                const updatedHostel = action.payload.hostel;
+                const updatedHostel = action.payload.boarding;
                 state.hostels = state.hostels.map((hostel) =>
                     hostel._id === updatedHostel._id ? updatedHostel : hostel
                 );

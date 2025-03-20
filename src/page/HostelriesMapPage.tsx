@@ -1,7 +1,7 @@
 import { useEffect, useState, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import {getBoardingsByLocationBounds, getHostels} from "../reducers/HostelSlice";
+import {getBoardingsByLocationBounds} from "../reducers/HostelSlice";
 import { MapContainer, TileLayer, Marker, Popup, useMap } from "react-leaflet";
 import { CircularProgress } from "@mui/material";
 import LoadingBar from "react-top-loading-bar";
@@ -63,9 +63,6 @@ function HostelriesMapPage() {
         iconSize: [40, 40],
     });
 
-    useEffect(() => {
-        dispatch(getHostels({}))
-    }, []);
 
     return (
         <div className="relative mt-[6vh]">
