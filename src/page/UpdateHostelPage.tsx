@@ -121,12 +121,10 @@ function UpdateHostel() {
                 icon: "success",
                 confirmButtonColor: "#FF8A00",
             });
-        } catch (error) {
-            console.error("Failed to update hostel:", error);
-
+        } catch (error: any) {
             await Swal.fire({
                 title: "Update Failed",
-                text: error.message || "Something went wrong",
+                text: error.message as string || "Something went wrong",
                 icon: "error",
                 confirmButtonColor: "#FF8A00",
             });

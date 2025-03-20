@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, {useEffect, useState} from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import {
@@ -73,9 +73,9 @@ const ListingCardContainer: React.FC<ListingCardContainerProps> = ({ hostels = [
     // Loading skeleton
     if (isLoading) {
         return (
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-6 p-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 px-[12vw]">
                 {[...Array(8)].map((_, index) => (
-                    <div key={index} className="animate-pulse rounded-xl overflow-hidden shadow-sm bg-white h-[400px]">
+                    <div key={index} className="animate-pulse rounded-xl overflow-hidden shadow-sm bg-white">
                         <div className="bg-gray-200 h-60"></div>
                         <div className="p-5 space-y-3">
                             <div className="h-5 bg-gray-200 rounded-full w-3/4"></div>
@@ -108,7 +108,7 @@ const ListingCardContainer: React.FC<ListingCardContainerProps> = ({ hostels = [
                     You haven't published any properties. Create your first listing to start attracting guests.
                 </p>
                 <button
-                    onClick={() => navigate('/create-hostel')}
+                    onClick={() => navigate('/showcase-your-space')}
                     className="px-6 py-3 bg-blue-600 text-white cursor-pointer font-medium rounded-lg hover:bg-blue-700 transition-all shadow-sm hover:shadow-md flex items-center gap-2"
                 >
                     <span>Create New Listing</span>
