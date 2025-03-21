@@ -115,7 +115,6 @@ function LocationInfoStep({ updateNextState }: Readonly<LocationInfoStepProps>) 
             {/* Map Container */}
             <div className={`w-full ${isMobile ? "h-[65vh]" : "h-[62vh]"}`}>
                 <MapContainer
-                    // @ts-ignore
                     center={[position.latitude, position.longitude]}
                     zoom={12}
                     className="w-full h-full rounded-lg shadow-md"
