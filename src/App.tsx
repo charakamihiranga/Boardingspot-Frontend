@@ -2,7 +2,6 @@ import {createBrowserRouter, RouterProvider} from "react-router-dom";
 import RootLayout from "./component/RootLayout.tsx";
 import HostelriesPage from "./page/HostelriesPage.tsx";
 import ErrorPage from "./page/ErrorPage.tsx";
-import FoodsPage from "./component/FoodsPage.tsx";
 import {GoogleOAuthProvider} from "@react-oauth/google";
 import {Provider} from "react-redux";
 import {persistor, store} from "./store/Store.ts";

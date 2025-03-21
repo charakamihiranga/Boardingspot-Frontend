@@ -6,7 +6,7 @@ export const getTimeAgo = (dateString: string) => {
         return "Invalid date";
     }
 
-    const diffTime = Math.abs(currentDate.getTime() - createdDate.getTime()); // Use .getTime()
+    const diffTime = Math.abs(currentDate.getTime() - createdDate.getTime());
     const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
 
     if (diffDays < 1) return "Today";

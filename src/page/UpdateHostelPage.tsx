@@ -11,6 +11,7 @@ import {useMediaQuery} from "react-responsive";
 import {RoomCategories} from "../model/enum/RoomCategories.ts";
 import {Gender} from "../model/enum/Gender.ts";
 import {ResidentType} from "../model/enum/ResidentType.ts";
+import {hostelValidators} from "../util/validator.ts";
 
 function UpdateHostel() {
     const [searchParams] = useSearchParams();
@@ -75,9 +76,42 @@ function UpdateHostel() {
         setActiveSection(activeSection === section ? "" : section);
     };
 
-    // Handle form submission
     const handleSubmit = async () => {
-        // Validation
+        const updateData = {
+            title,
+            capacity: Number(capacity),
+            category,
+            foodAvailability,
+            genderPreference,
+            forWhom,
+            description,
+            mobileNo: Number(mobileNo),
+            rent: Number(rent),
+            photos,
+            city,
+            _id: hostelId || searchParams.get("id") as string,
+        };
+
+        console.log(updateData);
+
+        const { isValid, errors } = hostelValidators.validateHostel(updateData);
+
+        if (!isValid) {
+            // Create a formatted error message from all validation errors
+            const errorMessages = Object.entries(errors)
+                .map(([field, message]) => `• ${field}: ${message}`)
+                .join('\n');
+
+            await Swal.fire({
+                title: "Validation Error",
+                html: `<div style="text-align: left;">Please fix the following issues:<br>${errorMessages.replace(/\n/g, '<br>')}</div>`,
+                icon: "error",
+                confirmButtonColor: "#FF8A00",
+            });
+            return;
+        }
+
+        // Additional check for critical required fields
         if (!title || !description || !mobileNo || !rent) {
             await Swal.fire({
                 title: "Missing Information",
@@ -91,21 +125,12 @@ function UpdateHostel() {
         setIsSubmitting(true);
 
         try {
+            // Remove the _id from the updates payload since it's used as the route parameter
+            const { _id, ...updates } = updateData;
+
             await dispatch(updateHostel({
-                id: hostelId || searchParams.get("id") as string,
-                updates: {
-                    title,
-                    capacity,
-                    category,
-                    foodAvailability,
-                    genderPreference,
-                    forWhom,
-                    description,
-                    mobileNo,
-                    rent,
-                    photos,
-                    city,
-                },
+                id: _id,
+                updates
             }));
 
             await Swal.fire({
@@ -114,6 +139,7 @@ function UpdateHostel() {
                 icon: "success",
                 confirmButtonColor: "#FF8A00",
             });
+            navigation('/manage-listings');
         } catch (error: any) {
             await Swal.fire({
                 title: "Update Failed",
@@ -125,7 +151,6 @@ function UpdateHostel() {
             setIsSubmitting(false);
         }
     };
-
 
     if (isLoading) {
         return (

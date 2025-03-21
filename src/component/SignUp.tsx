@@ -10,6 +10,7 @@ import { User } from "../model/User.ts";
 import Swal from "sweetalert2";
 import { Gender } from "../model/enum/Gender.ts";
 import { CredentialResponse, GoogleLogin } from "@react-oauth/google";
+import {validateAuthForm} from "../util/validator.ts";
 
 interface SignUpProps {
   isOpen: boolean;
@@ -73,20 +74,35 @@ function SignUp({ isOpen, onClose }: Readonly<SignUpProps>) {
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
+    // Validate form data
+    const errors = validateAuthForm(formData);
+    if (Object.keys(errors).length > 0) {
+      await Swal.fire({
+        title: "Validation Error",
+        text: Object.values(errors).join("\n"),
+        icon: "error",
+        confirmButtonText: "Retry",
+        confirmButtonColor: "#d33",
+      });
+      return;
+    }
+
     const user: User = new User(
-      formData.fullName,
-      formData.email,
-      new Date(formData.dob),
-      formData.gender,
-      "",
-      formData.password
+        formData.fullName,
+        formData.email,
+        new Date(formData.dob),
+        formData.gender,
+        "",
+        formData.password
     );
+
     try {
       await dispatch(registerUser(user)).unwrap();
       onClose();
     } catch (error) {
       await Swal.fire({
-        title: "Login Failed",
+        title: "Registration Failed",
         text: error as string,
         icon: "error",
         confirmButtonText: "Retry",
@@ -94,6 +110,7 @@ function SignUp({ isOpen, onClose }: Readonly<SignUpProps>) {
       });
     }
   };
+
 
   if (!isOpen) return null;
 

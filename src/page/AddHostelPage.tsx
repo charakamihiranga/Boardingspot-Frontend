@@ -12,6 +12,7 @@ import LocationInfoStep from "../component/LocationInfoStep.tsx";
 import PreferenceStep from "../component/PreferenceStep.tsx";
 import RoomDetailInfo from "../component/RoomDetailInfo.tsx";
 import Swal from "sweetalert2";
+import {hostelValidators} from "../util/validator.ts";
 
 function AddHostelPage() {
     const dispatch = useDispatch<AppDispatch>();
@@ -45,6 +46,20 @@ function AddHostelPage() {
     ];
 
     const handlePublish = async () => {
+        const { isValid, errors } = hostelValidators.validateHostel(hostel.formData);
+
+        if (!isValid) {
+            const errorMessage = Object.values(errors).join('\n');
+
+            return Swal.fire({
+                title: "Validation Error",
+                text: errorMessage,
+                icon: "error",
+                confirmButtonText: "Fix Issues",
+                confirmButtonColor: "#d33",
+            });
+        }
+
         try {
             await dispatch(addHostel(hostel.formData));
             dispatch(resetForm());

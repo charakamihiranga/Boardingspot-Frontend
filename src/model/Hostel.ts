@@ -27,7 +27,7 @@ export class Hostel {
         this.capacity = data.capacity ?? 0;
         this.category = data.category ?? "";
         this.rent = data.rent ?? 0;
-        this.mobileNo = data.mobileNo ?? 0; // ✅ Ensure it's a number
+        this.mobileNo = data.mobileNo ?? 0;
         this.forWhom = data.forWhom ?? "";
         this.foodAvailability = data.foodAvailability ?? false;
         this.photos = data.photos ?? [];

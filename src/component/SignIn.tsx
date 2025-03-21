@@ -1,12 +1,13 @@
 import { useState, ChangeEvent, FormEvent } from "react";
 import { motion } from "framer-motion";
 import { IoClose } from "react-icons/io5";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { googleAuth, loginUser } from "../reducers/UserSlice.ts";
 import Swal from "sweetalert2";
 import { useMediaQuery } from "react-responsive";
-import { AppDispatch, RootState } from "../store/Store.ts";
+import { AppDispatch } from "../store/Store.ts";
 import { CredentialResponse, GoogleLogin } from "@react-oauth/google";
+import {validateAuthForm} from "../util/validator.ts";
 
 interface LoginProps {
   isOpen: boolean;
@@ -20,7 +21,6 @@ function Login({ isOpen, onClose }: Readonly<LoginProps>) {
   });
   const isMobile = useMediaQuery({ maxWidth: 768 });
   const dispatch = useDispatch<AppDispatch>();
-  const user = useSelector((state: RootState) => state.user.user);
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -28,18 +28,27 @@ function Login({ isOpen, onClose }: Readonly<LoginProps>) {
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    const errors = validateAuthForm(formData);
+
+    if (Object.keys(errors).length > 0) {
+      Swal.fire({
+        title: "Validation Error",
+        text: Object.values(errors).join("\n"),
+        icon: "error",
+        confirmButtonText: "Retry",
+      });
+      return;
+    }
+
     try {
       await dispatch(loginUser(formData));
-      console.log(user);
       onClose();
-    } catch (error) {
-      console.error(error);
-      await Swal.fire({
+    } catch (error: any) {
+      Swal.fire({
         title: "Login Failed",
         text: "Invalid credentials. Please try again.",
         icon: "error",
         confirmButtonText: "Retry",
-        confirmButtonColor: "#d33",
       });
     }
   };
