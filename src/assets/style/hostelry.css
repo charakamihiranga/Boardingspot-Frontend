@@ -1,0 +1,23 @@
+.leaflet-popup-content-wrapper {
+    padding: 0;
+    overflow: hidden;
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+    width: 280px;
+}
+.leaflet-popup-content {
+    margin: 0;
+    width: 280px !important;
+}
+.leaflet-popup-tip {
+    background: white;
+}
+.hostel-popup-content {
+    width: 100%;
+}
+.hostel-popup-image {
+    transition: transform 0.3s ease;
+}
+.hostel-popup-image:hover {
+    transform: scale(1.05);
+}
